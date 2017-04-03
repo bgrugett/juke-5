@@ -2,6 +2,28 @@ import React from 'react';
 import AddSong from '../components/AddSong';
 import store from '../store';
 import {loadAllSongs, addSongToPlaylist} from '../action-creators/playlists';
+import {connect} from 'react-redux';
+
+// export default connect(mapStateToProps, mapDispatchToProps)(AddSong);
+
+// const mapStateToProps = function (storeState, ownProps) {
+//   return {
+//     songs: storeState.songs,
+//     songId: storeState.songId,
+//     error:false
+//   };
+// };
+
+// const mapDispatchToProps = function(dispatch, ownProps){
+  
+//   return {
+//     handleChange: function(){
+//       dispatch()
+//     },
+//     handleSubmit: this.handleSubmit
+//   }
+// }
+
 
 class AddSongContainer extends React.Component {
 

@@ -14,6 +14,7 @@ const convertSongsToStations = function (songsArray) {
 };
 
 const mapStateToProps = function (state) {
+  console.log("state in StationsContainer", state);
   return {
     stations: convertSongsToStations(state.songs)
   };

@@ -26,3 +26,11 @@ class AlbumsContainer extends Component {
 }
 
 export default AlbumsContainer;
+
+// export default connect(mapStateToProps,mapDispatchToProps)(Albums);
+
+// const mapStateToProps = function(storeState, ownProps){
+//   return {
+//     albums: storeState.albums
+//   }
+// }
