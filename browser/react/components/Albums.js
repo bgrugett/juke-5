@@ -5,6 +5,7 @@ export default function Albums (props) {
 
   const albums = props.albums;
 
+  console.log('~~~props in Albums ', props);
   return (
     <div>
       <h3>Albums</h3>
