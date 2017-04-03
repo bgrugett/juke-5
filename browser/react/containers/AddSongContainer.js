@@ -4,8 +4,6 @@ import store from '../store';
 import {loadAllSongs, addSongToPlaylist} from '../action-creators/playlists';
 import {connect} from 'react-redux';
 
-// export default connect(mapStateToProps, mapDispatchToProps)(AddSong);
-
 // const mapStateToProps = function (storeState, ownProps) {
 //   return {
 //     songs: storeState.songs,
@@ -24,32 +22,49 @@ import {connect} from 'react-redux';
 //   }
 // }
 
+const mapStateToProps = function(storeState ){
+  console.log("storeState is......", storeState);
+  return {
+   songs: storeState.songs,
+   playlistId: storeState.playlists.selected.id
+  };
+};
+
+const mapDispatchToProps = function(dispatch, ownProps){
+  return {
+    addSongToPlaylist: function(playlistId, songId){
+      dispatch(addSongToPlaylist(playlistId, songId))
+      .catch(() => this.setState({ error: true }));
+    }
+  }
+};
+
 
 class AddSongContainer extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = Object.assign({
+    this.state = {
       songId: 1,
       error: false
-    }, store.getState());
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
+  // componentDidMount() {
 
-    this.unsubscribe = store.subscribe(() => {
-      this.setState(store.getState());
-    });
+  //   this.unsubscribe = store.subscribe(() => {
+  //     this.setState(store.getState());
+  //   });
 
-    store.dispatch(loadAllSongs());
+  //   store.dispatch(loadAllSongs());
 
-  }
+  // }
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
+  // componentWillUnmount() {
+  //   this.unsubscribe();
+  // }
 
   handleChange(evt) {
     this.setState({
@@ -62,24 +77,23 @@ class AddSongContainer extends React.Component {
 
     evt.preventDefault();
 
-    const playlistId = this.state.playlists.selected.id;
-    const songId = this.state.songId;
+    // const playlistId = this.state.playlists.selected.id;
+    // const songId = this.state.songId;
 
-    store.dispatch(addSongToPlaylist(playlistId, songId))
-      .catch(() => this.setState({ error: true }));
-
+    // store.dispatch(addSongToPlaylist(playlistId, songId))
+    //   .catch(() => this.setState({ error: true }));
   }
 
   render() {
 
-    const songs = this.state.songs;
+    // const songs = this.state.songs;
     const error = this.state.error;
     const songId = this.state.songId;
 
     return (
       <AddSong
         {...this.props}
-        songs={songs}
+        songs={this.props.songs}
         error={error}
         songId={songId}
         handleChange={this.handleChange}
@@ -87,5 +101,5 @@ class AddSongContainer extends React.Component {
     );
   }
 }
-
-export default AddSongContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(AddSongContainer);
+// export default AddSongContainer;
